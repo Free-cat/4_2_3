@@ -30,6 +30,7 @@ public class Main extends Application {
     public String labeltext1 = "";
     public String labeltext2 = "";
     public String answerString = "";
+    public int maxstep = 0;
 
 
 
@@ -50,6 +51,7 @@ public class Main extends Application {
         int arg1 = Integer.parseInt(arg2.getText());
         int step1 = Integer.parseInt(step2.getText());
         hashMap2.put(step1, arg1);
+        if (step1 > maxstep) maxstep = step1;
         labeltext2 += "(" + arg1 + "x^" + step1 + ")" + "*";
         mnog2.setText(labeltext2);
         mnog2.setVisible(true);
@@ -59,33 +61,34 @@ public class Main extends Application {
         int arg = Integer.parseInt(arg1.getText());
         int step = Integer.parseInt(step1.getText());
         hashMap1.put(step, arg);
+        if (step > maxstep) maxstep = step;
         labeltext1 += "(" + arg + "x^" + step + ")" + "*";
         mnog1.setText(labeltext1);
         mnog1.setVisible(true);
     }
 
     public void go(ActionEvent actionEvent) {
-        int n = 0;
+        /*int n = 0;
         int m = 0;
         if (hashMap1.size() > hashMap2.size()) {
             n = hashMap1.size();
         }
         else {
             n = hashMap2.size();
-        }
-        for (int i = 0; i < n; i++){
+        }*/
+        for (int i = 0; i < maxstep+1; i++){
             Integer frequency = hashMap1.get(i);
             if (frequency == null)
             hashMap1.put(i, 0);
         }
 
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < maxstep+1; i++){
             Integer frequency = hashMap2.get(i);
             if (frequency == null)
                 hashMap2.put(i, 0);
         }
 
-        for (int i = n-1; i>0; i--){
+        for (int i = maxstep; i>0; i--){
             int argus = hashMap2.get(i) + hashMap1.get(i);
             answerString += argus + "x^" + i + "+";
         }
